@@ -1,0 +1,43 @@
+Strech Goal:
+	-Pickup feet in video
+
+Step Goal:
+	-Fix other little things
+		-make gui more streamline to have it all go faster
+
+Potential Improvements:
+	-Separate cropping and video settings for top and bottom
+	-Add rotate
+
+Random stuff:
+
+	--get_Xvel returns mean velocity, output to gui and file
+	--calc_Xvel calculates mean velocity
+		--Adds new vel to velocity list
+		--runs np.mean to calculate new mean
+	--calc_vel_pos finds displacement and time to then calculate velocity
+		--stored in an array (self.velocity)
+
+
+To Do:
+	reset after trial
+		boolean = video_playing
+		reset if video_playing == false
+		Or just reset function
+
+	rat = black, bg = white
+
+	set default file location to docs or videos
+		line 173 testGUI.py
+
+	pickup feet better
+		currently getting nan
+
+	put cropping in
+
+	excel file output
+
+	software icon
+
+	keybinding
+		might have to write separate function for keybinds that take an event argument

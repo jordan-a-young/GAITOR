@@ -1,0 +1,19 @@
+mouse_output:
+--------README---------
+the values have been calculated with pixel distance and not inch/meter distance
+
+-----Key----
+FR - Front right paw
+FL - Front left paw
+BR - Back right paw
+BL - Back right paw
+
+Cadence: 8
+FR Variability: 258.431537114
+FL Variability: 171.005491567
+BR Variability: 325.026908682
+BL Variability: 125.828361558
+
+
+Figure:
+mouse gait over 3 seconds.

@@ -1,0 +1,15 @@
+Cadence: 0.74925
+
+-Stride Length Variability-
+Front Right: nan cm
+Hind Right: 0.0 cm
+Front Left: nan cm
+Hind Left: nan cm
+
+-Steps Taken by Each Paw-
+Front Right: 0
+Hind Right: 1
+Front Left: 0
+Hind Left: 0
+
+Mean Velocity: 2.07468105469 cm/sec
