@@ -41,3 +41,9 @@ To Do:
 
 	keybinding
 		might have to write separate function for keybinds that take an event argument
+
+
+Helpful Links:
+	http://stackoverflow.com/questions/3374828/how-do-i-track-motion-using-opencv-in-python
+	https://github.com/bikz05/object-tracker
+	http://docs.opencv.org/trunk/d2/d0a/tutorial_introduction_to_tracker.html
