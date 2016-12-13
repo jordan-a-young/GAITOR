@@ -15,15 +15,17 @@ class frame():
 		and bottom mask array
 		if not 'use_profile', then the frame is always valid
 		'''
-		#print 'Currently performing: Frame init'
+		print 'Currently performing: Frame init'
 		self.use_profile = use_profile
 		self.top_mask = top_mask
 
 		# empty 1x2 array to hold the side position as they are found
 		self.side_geom = np.empty([1,2])
+		# self.side_geom = [np.nan, np.nan]
 
 		# empty 2x2 array to hold feet positions as they are found
 		self.foot_geom = np.empty([2, 2])
+		# self.foot_geom = [[np.nan,np.nan],[np.nan,np.nan]]
 
 		# calculate the critical points
 		self.valid_flag = self.calc_critical_points(top_mask) or not use_profile
@@ -40,23 +42,30 @@ class frame():
 
 		frames are valid if the entire rat's body is on screen
 		'''
-		#print 'Currently performing: Frame calc_critical_points'
+		print 'Currently performing: Frame calc_critical_points'
+
+		# greyscale of top image, to find contours
+		# imgray = cv2.cvtColor(top,cv2.COLOR_BGR2GRAY)
+
 		# find contours
 		contours, hierarchy = cv2.findContours(top, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
 		# valid frame will have contours
 		if not contours:
-			self.critical_points = [None, None, None]
-			return False
+				self.critical_points = [None, None, None]
+				return False
 
 		else:
 			# first, find the largest contour
+			# TODO sort and get first element for nlog(n) time
 			largest = contours[0]
 			for c in contours:
 				if len(c) > len(largest):
 					largest = c
 
 			# find rightmost and topmost point
+
+			# TODO make this not as stupid looking
 			# rat's nose
 			front = tuple(largest[largest[:, :, 0].argmax()][0])
 			# rat's hunch
@@ -67,6 +76,7 @@ class frame():
 			try:
 				x_value = hunch[0] - rear[0]
 				x_value += hunch[0]
+				# print 'x_value: ' + str(x_value)
 				mid = tuple(largest[np.where(largest[:,:,0] == x_value)][0])
 
 				# rat's feet
@@ -101,8 +111,9 @@ class frame():
 			return True
 
 	def calc_side_position(self, mask):
-		#print 'Currently performing: Frame calc_side_position'
+		print 'Currently performing: Frame calc_side_position'
 		# calculates the position of rat in the side image
+		
 		# empty 1x2 array to hold side position as they are found
 		self.side_geom = [np.nan, np.nan]
 		self.side_contout = [np.nan]
@@ -110,8 +121,8 @@ class frame():
 			# find the rat contour using edge detection
 			edge = cv2.Canny(mask, 0, 15)
 			cnts, h = cv2.findContours(edge, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-			
 			# first, find the largest contour
+			# TODO sort and get first element for nlog(n) time
 			cnts = sorted(cnts, key=cv2.contourArea, reverse=True)
 			rat = cnts[0]
 
@@ -123,6 +134,9 @@ class frame():
 			cx = int(M['m10']/M['m00'])
 			cy = int(M['m01']/M['m00'])
 
+			# self.side_geom = [cx,cy]
+			# self.side_contour = cnts
+
 		except:
 			pass
 
@@ -132,9 +146,9 @@ class frame():
 		by finding the extreme points of the detected feet in the given
 		foot mask
 		'''
-		#print 'Currently performing: Frame calc_feet_positions'
+		print 'Currently performing: Frame calc_feet_positions'
 		# empty 2x2 array to hold feet positions as they are found
-		self.foot_geom = [[None,None], [None,None]]
+		self.foot_geom = [[None,None] , [None,None]]
 		try:
 			rear_limit, topmost, rightmost, _ = self.critical_points[0]
 
@@ -148,6 +162,8 @@ class frame():
 			cv2.rectangle(mask, (0, 0), (rear_limit, h), 0, -1)
 
 		# blur, to merge adjacent toes and footpads
+		# TODO: for each footpad on grid, make grid mean of current
+		# centroid and new centroid
 		mask = cv2.blur(mask, (10,10))
 
 		# is this still a valid frame?
@@ -170,7 +186,6 @@ class frame():
 		for c in centers:
 			# distance to frontmost
 			front_dist = front - c[0]
-			
 			# distance to rearmost
 			rear_dist = c[0] - rear
 
@@ -189,12 +204,12 @@ class frame():
 			# Is there already a foot here?
 			old_foot = self.foot_geom[x][y]
 
-			# if so, this value becomes the mean of the old and new feet
 			if old_foot:
+				# if so, this value becomes the mean of the old and new feet
 				new_x = np.mean([c[0], old_foot[0]])
 				new_y = np.mean([c[1], old_foot[1]])
 			else:
-				new_x, new_y = c
+				new_x , new_y = c
 
 			self.foot_geom[x][y] = [new_x, new_y]
 
@@ -204,17 +219,17 @@ class frame():
 		and the curvature of the rat's back
 		coeffs are an empty array and curvature is null if there is no data
 		'''
-		#print 'Currently performing: Frame calc_arch_data'
+		print 'Currently performing: Frame calc_arch_data'
 		self.arch_angle, self.arch_contour = get_arch_data(self, self.top_mask)
 
 	def get_arch_data(self):
-		#print 'Currently performing: Frame get_arch_data'
+		print 'Currently performing: Frame get_arch_data'
 		# return the angle and the contour fot he rat's back
 		self.calc_arch_data()
 		return self.arch_angle, self.arch_contour
 
 	def get_critical_points(self):
-		#print 'Currently performing: Frame get_critical_points'
+		print 'Currently performing: Frame get_critical_points'
 		# returns rear_limit, topmost, rightmost
 		return self.critical_points
 
@@ -223,11 +238,11 @@ class frame():
 		return a 1x2 array containing the centroid
 		of the side position found
 		'''
-		#print 'Currently performing: Frame get_side_position'
+		print 'Currently performing: Frame get_side_position'
 		return self.side_geom
 
 	def get_side_contour(self):
-		#print 'Currently performing: Frame get_side_contour'
+		print 'Currently performing: Frame get_side_contour'
 		# return the entire contour array for side image
 		return self.side_contour
 
@@ -237,11 +252,11 @@ class frame():
 		element 0,0 corresponds to rear left foot
 		missing feet are None
 		'''
-		#print 'Currently performing: Frame get_foot_positions'
+		print 'Currently performing: Frame get_foot_positions'
 		return self.foot_geom
 
 	def get_valid_flag(self):
-		#print 'Currently performing: Frame get_valid_flag'
+		print 'Currently performing: Frame get_valid_flag'
 		# return if frame is valid
 		return self.valid_flag
 
@@ -252,11 +267,11 @@ def get_next_frame(trial):
 
 		returns none if there is no data to read
 		'''
-		#print 'Currently performing: Frame get_next_frame'
+		print 'Currently performing: Frame get_next_frame'
 		ret, top, bot = trial.read()
 
 		if not ret:
-			return None
+				return None
 
 		top_mask = trial.get_top_mask()
 		bot_mask = trial.get_bottom_mask()
@@ -265,7 +280,7 @@ def get_next_frame(trial):
 
 # find largest side contour
 def get_side_contour(top_mask):
-	#print 'Currently performing: Frame get_side_contour'
+	print 'Currently performing: Frame get_side_contour'
 	try:
 		edged = cv2.Canny(top_mask,0,15)
 		cnts,h = cv2.findContours(edged, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -287,7 +302,7 @@ def get_side_contour(top_mask):
 		return np.array([np.nan,np.nan])
 
 def dostuff(i, c, f, o):
-	#print 'Currently performing: Frame dostuff'
+	print 'Currently performing: Frame dostuff'
 	# print 'i: ' + str(i)
 	# print 'c: ' + str(c)
 	if(i >= c):
@@ -296,18 +311,18 @@ def dostuff(i, c, f, o):
 		steps = s(f,list_size,29)
 
 		c,fr,fl,br,bl = steps.get_variable()
-		file = open(o,'w')
-		file.write(o)
-		file.write('Cadence: '+str(c))
-		file.write('/n')
-		file.write('FR Variability: '+str(fr))
-		file.write('/n')
-		file.write('FL Variability: '+str(fl))
-		file.write('/n')
-		file.write('BR Variability: '+str(br))
-		file.write('/n')
-		file.write('BL Variability: '+str(bl))
-		file.close()
+		target = open(o,'w')
+		target.write(o)
+		target.write('Cadence: '+str(c))
+		target.write('/n')
+		target.write('FR Variability: '+str(fr))
+		target.write('/n')
+		target.write('FL Variability: '+str(fl))
+		target.write('/n')
+		target.write('BR Variability: '+str(br))
+		target.write('/n')
+		target.write('BL Variability: '+str(bl))
+		target.close()
 		# plot
 		steps.plot_paw()
 	else:
@@ -315,13 +330,13 @@ def dostuff(i, c, f, o):
 		# print ' not doing stuff'
 
 # unit testing below
-def debug(video, output):
+def debug(video,output):
 
 		import trial_video
 		import numpy as np
 		import itertools
 
-		trial = trial_video.trial_video(video,horizon=801,top_thresh=15,bot_thresh=83)
+		trial = trial_video.trial_video(video,horizon=801,side_thresh=15,bot_thresh=83)
 		count = trial.get(CV_CAP_PROP_FRAME_COUNT)
 
 

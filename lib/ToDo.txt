@@ -1,0 +1,5 @@
+---- split rat into four quadrants
+--------identify each paw
+----------- get_cadence()--- number of steps  per  sec
+----------- get_variability()  --- standard div of stride lenght
+----------- get_stride_lenght() --- distance between every left paw step down

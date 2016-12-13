@@ -4,14 +4,15 @@ from scipy.interpolate import interp1d
 
 class steps():
 	'''
-	analyze paw data retrieved from frame class
+	analyze paw data retrieved from
+	frame class
 	'''
-	def __init__(self, paw_list, list_size, fps, conversion=108.5, frame_width=None):
+	def __init__(self, paw_list, list_size, fps, conversion=116.84, frame_width=None):
 		'''
 		initialize list of paws, size of list and
 		frame per second
 		'''
-		#print 'Currently performing: Steps init'
+		print 'Currently performing: Steps init'
 		self.conversion = conversion
 		self.frame_width =float(frame_width)
 
@@ -66,7 +67,7 @@ class steps():
 		count the amount of paw present
 		following right paw absence
 		'''
-		#print 'Currently performing: Steps analyze_front_right'
+		print 'Currently performing: Steps analyze_front_right'
 		paw_found = False
 		previous_paw = 0
 		current_paw = 0
@@ -74,7 +75,7 @@ class steps():
 		for i in xrange(self.list_size):
 			try:
 				if self.paw_list[i][self.FRONT][self.RIGHT] and not self.paw_list[i-1][self.FRONT][self.RIGHT]:
-					# if the paw was previously in the air and is now down
+					# if the paw was previously in the air and in now down
 					# increment the number of steps
 					self.front_right_steps += 1
 					paw_found = True
@@ -92,7 +93,7 @@ class steps():
 					self.FR_list.append(value)
 
 				if not self.paw_list[i][self.FRONT][self.RIGHT]:
-					# if there was a paw in previous frame and it's no longer there
+					# if there was a paw in previous frame and its no longer there
 					paw_found = False
 					value = None
 					self.FR_list.append(value)
@@ -105,7 +106,7 @@ class steps():
 		count the amount of paw present
 		following left paw absence
 		'''
-		#print 'Currently performing: Steps analyze_front_left'
+		print 'Currently performing: Steps analyze_front_left'
 		paw_found = False
 		previous_paw = 0
 		current_paw = 0
@@ -113,7 +114,7 @@ class steps():
 		for i in xrange(self.list_size):
 			try:
 				if self.paw_list[i][self.FRONT][self.LEFT] and not self.paw_list[i-1][self.FRONT][self.LEFT]:
-					# if the paw was previously in the air and is now down
+					# if the paw was previously in the air and in now down
 					# increment the number of steps
 					self.front_left_steps += 1
 					paw_found = True
@@ -131,7 +132,7 @@ class steps():
 					self.FL_list.append(value)
 
 				if not self.paw_list[i][self.FRONT][self.LEFT]:
-					# if there was a paw in previous frame and it's no longer there
+					# if there was a paw in previous frame and its no longer there
 					paw_found = False
 					value = None
 					self.FL_list.append(value)
@@ -144,7 +145,7 @@ class steps():
 		count the amount of paw present
 		following right paw absence
 		'''
-		#print 'Currently performing: Steps analyze_back_right'
+		print 'Currently performing: Steps analyze_back_right'
 		paw_found = False
 		previous_paw = 0
 		current_paw = 0
@@ -152,7 +153,7 @@ class steps():
 		for i in xrange(self.list_size):
 			try:
 				if self.paw_list[i][self.BACK][self.RIGHT] and not self.paw_list[i-1][self.BACK][self.RIGHT]:
-					# if the paw was previously in the air and is now down
+					# if the paw was previously in the air and in now down
 					# increment the number of steps
 					self.back_right_steps += 1
 					paw_found = True
@@ -170,7 +171,7 @@ class steps():
 					self.BR_list.append(value)
 
 				if not self.paw_list[i][self.BACK][self.RIGHT]:
-					# if there was a paw in previous frame and it's no longer there
+					# if there was a paw in previous frame and its no longer there
 					paw_found = False
 					value = None
 					self.BR_list.append(value)
@@ -183,7 +184,7 @@ class steps():
 		count the amount of paw present
 		following left paw absence
 		'''
-		#print 'Currently performing: Steps analyze_back_left'
+		print 'Currently performing: Steps analyze_back_left'
 		paw_found = False
 		previous_paw = 0
 		current_paw = 0
@@ -191,7 +192,7 @@ class steps():
 		for i in xrange(self.list_size):
 			try:
 				if self.paw_list[i][self.BACK][self.LEFT] and not self.paw_list[i-1][self.BACK][self.LEFT]:
-					# if the paw was previously in the air and is now down
+					# if the paw was previously in the air and in now down
 					# increment the number of steps
 					self.back_left_steps += 1
 					paw_found = True
@@ -209,7 +210,7 @@ class steps():
 					self.BL_list.append(value)
 
 				if not self.paw_list[i][self.BACK][self.LEFT]:
-					# if there was a paw in previous frame and it's no longer there
+					# if there was a paw in previous frame and its no longer there
 					paw_found = False
 					value = None
 					self.BL_list.append(value)
@@ -218,7 +219,7 @@ class steps():
 				pass
 
 	def plot_paw(self, linewidth=10):
-		#print 'Currently performing: Steps plot_paw'
+		print 'Currently performing: Steps plot_paw'
 		# draw a line on a plane representing the paw
 		print 'Starting the plot...'
 		FR = np.array(self.FR_list)
@@ -251,11 +252,12 @@ class steps():
 		x_label = ax.set_xlabel('seconds')
 		y_label = ax.set_ylabel('Paw')
 
+		# plt.show()
 		print 'finished....'
 		return fig
 
 	def analyze(self):
-		#print 'Currently performing: Steps analyze'
+		print 'Currently performing: Steps analyze'
 		# initialize analysis of paw frame data
 		self.analyze_front_right()
 		self.analyze_front_left()
@@ -267,14 +269,14 @@ class steps():
 		self.print_info()
 
 	def set_cadence(self):
-		#print 'Currently performing: Steps set_cadence'
+		print 'Currently performing: Steps set_cadence'
 		# total number of steps per sec
 		total_steps = (self.front_left_steps + self.front_right_steps + self.back_left_steps + self.back_right_steps)
 		
 		self.cadence = total_steps / self.seconds
 
 	def set_variability(self):
-		#print 'Currently performing: Steps set_variability'
+		print 'Currently performing: Steps set_variability'
 		# standard div of stride length
 		FR = np.array(self.FR_stride)
 		FL = np.array(self.FL_stride)
@@ -306,16 +308,17 @@ class steps():
 		self.BL_var = (self.BL_var/self.frame_width)*self.conversion
 
 	def print_info(self):
-		#print 'Currently performing: Steps print_info'
+		print 'Currently performing: Steps print_info'
 		# save test analysis to csv
 		np.savetxt('fr_stride',self.FR_stride,delimiter=',')
 		np.savetxt('fl_stride',self.FL_stride,delimiter=',')
 		np.savetxt('br_stride',self.BR_stride,delimiter=',')
 		np.savetxt('bl_stride',self.BL_stride,delimiter=',')
+		print 'width: ' + str(self.frame_width)
 
 		return len(self.FR_stride), len(self.FL_stride),len(self.BR_stride),len(self.BL_stride)
 
 	def get_variable(self):
-		#print 'Currently performing: Steps get_variable'
+		print 'Currently performing: Steps get_variable'
 		# get variable of steps
 		return self.cadence, self.FR_var, self.FL_var,self.BR_var,self.BL_var
