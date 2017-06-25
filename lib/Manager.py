@@ -41,34 +41,6 @@ class Manager():
 		root.destroy()
 		return file_name
 
-	"""
-	Purpose: Uses string and path manipulations to create the output filenames for
-	the different outputs of the program.
-	Input: 	inputfile: the full filepath of the video being analyzed
-			filetype: the type of file being written
-			add_text: any additional text, defaults to empty string
-	Output: a unique filepath for the output file to be written to.
-	"""
-	def make_file_path(self, input_file, file_type, add_text=''):
-		#add a space to additional text if it exists for formatting purposes
-		if len(add_text) > 0:
-			add_text = ' ' + add_text
-		
-		#splits the filepath into directory + the files name
-		splitpath = os.path.split(input_file)
-		newpath = (splitpath[0] + '/' + splitpath[1].split('.')[0] +
-				  ' automated scoring' + add_text + file_type)
-
-		#If file already exists append numbers to its name until it doesn't exist
-		counter = 1
-		while os.path.exists(newpath):
-			counter += 1
-			newpath = (splitpath[0] + '/' + splitpath[1].split('.')[0] +
-					  ' automated scoring' + add_text + ' (' + str(counter) + ')' +
-					  file_type)
-
-		return newpath
-
 	def select_roi(self):
 		return self.roi_manager.set_roi()
 

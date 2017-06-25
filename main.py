@@ -5,21 +5,4 @@ from lib.Analyzer import Analyzer
 import cv2
 
 manager = Manager()
-file = manager.select_video()
-print "File chosen: %s" % file
-
-cap = cv2.VideoCapture(file)
-frame = None
-
-while True:
-	ret, frame = cap.read()
-
-	if not ret:
-		print "video could not be loaded"
-		break
-	if frame.any():
-		print "frame found"
-		break
-
-roiManager = ROIManager(frame)
-roiManager.set_roi()
+manager.select_roi()
