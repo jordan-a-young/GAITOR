@@ -59,7 +59,7 @@ class Tracker():
 		return m_val, b_val, t_val, reset
 
 	def set_trackbar_values(self, m_val, b_val, t_val):
-		if b_val%2 == 0: 
+		if b_val%2 != 0: 
 			median_value = cv2.setTrackbarPos('Median', 'Track', m_val)
 			blur_value = cv2.setTrackbarPos('Blur', 'Track', b_val)
 			thresh_value = cv2.setTrackbarPos('Thresh', 'Track', t_val)
