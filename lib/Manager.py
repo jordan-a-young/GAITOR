@@ -21,6 +21,22 @@ class Manager():
 		root.destroy()
 		return folder
 
+	def select_video(self):
+		root = tk.Tk()
+		root.update()
+
+		file_opt = {}
+		options['defaultextension'] = ' .MP4'
+		options['filetypes'] = [('all files', '.*'),('text files','.MP4')]
+		options['initialdir'] = 'c:\Users\\'
+		options['initialfile'] = ' '
+
+		# file name
+		file_name = tkFile.askopenfilename(**file_opt)
+
+		root.destroy()
+		return file_name
+
 	"""
 	Purpose: Uses string and path manipulations to create the output filenames for
 	the different outputs of the program.
