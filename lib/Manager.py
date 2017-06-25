@@ -1,5 +1,6 @@
 import cv2
-import Tkinter as tkimport tkFileDialog
+import Tkinter as tk
+import tkFileDialog
 import os.path
 
 
