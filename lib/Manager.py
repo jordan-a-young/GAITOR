@@ -2,6 +2,7 @@ import cv2
 import Tkinter as tk
 import tkFileDialog as tkFile
 from ROIManager import ROIManager
+from Tracker import Tracker
 import numpy as np
 
 class Manager():
@@ -74,12 +75,12 @@ class Manager():
 
 	def create_trackbars(self):
 		self.trackbar_window = cv2.namedWindow("Trackbars")
-		cv2.createTrackbar('Median', 'Trackbars', 0, 255, nothing)
-		cv2.createTrackbar('Blur', 'Trackbars', 1, 99, nothing)
-		cv2.createTrackbar('Thresh', 'Trackbars', 0, 255, nothing)
-		cv2.createTrackbar('Save', 'Trackbars', 0, 1, nothing)
-		cv2.createTrackbar('Load', 'Trackbars', 0, 1, nothing)
-		cv2.createTrackbar('Reset', 'Trackbars', 0, 1, nothing)
+		cv2.createTrackbar('Median', 'Trackbars', 0, 255, self.nothing)
+		cv2.createTrackbar('Blur', 'Trackbars', 1, 99, self.nothing)
+		cv2.createTrackbar('Thresh', 'Trackbars', 0, 255, self.nothing)
+		cv2.createTrackbar('Save', 'Trackbars', 0, 1, self.nothing)
+		cv2.createTrackbar('Load', 'Trackbars', 0, 1, self.nothing)
+		cv2.createTrackbar('Reset', 'Trackbars', 0, 1, self.nothing)
 
 		self.default_values()
 
