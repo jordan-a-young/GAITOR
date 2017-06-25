@@ -24,9 +24,9 @@ class Manager():
 	"""
 	Purpose: Uses string and path manipulations to create the output filenames for
 	the different outputs of the program.
-	Input: inputfile: the full filepath of the video being analyzed, filetype: the
-	type of file being written, and add_text: any additional text, defaults to empty
-	string
+	Input: 	inputfile: the full filepath of the video being analyzed
+			filetype: the type of file being written
+			add_text: any additional text, defaults to empty string
 	Output: a unique filepath for the output file to be written to.
 	"""
 	def make_file_path(input_file, file_type, add_text=''):
