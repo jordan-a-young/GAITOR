@@ -8,9 +8,10 @@ import numpy as np
 class Manager():
 	def __init__(self):
 		self.first_frame = self.get_first_frame()
+		self.file_name = ''
 		self.roi_manager = ROIManager(self.first_frame)
-		self.tracker = Tracker()
-		self.create_trackbars()
+		self.tracker = Tracker(self.file_name)
+
 		print 'Manager class initialized'
 
 	"""
@@ -39,21 +40,22 @@ class Manager():
 		file_opt['initialfile'] = ' '
 
 		# file name
-		file_name = tkFile.askopenfilename(**file_opt)
+		self.file_name = tkFile.askopenfilename(**file_opt)
+		print "File chosen: %s" % self.file_name
 
 		root.destroy()
-		return file_name
+		return self.file_name
 
 	def select_roi(self):
 		return self.roi_manager.set_roi()
 
 	def get_roi(self):
-		return self.roi_manager.get_roi() 
+		return self.roi_manager.get_roi()
+
+	def get_file_name(self):
+	 	return self.file_name
 
 	def get_first_frame(self):
-		file_name = self.select_video()
-		print "File chosen: %s" % file_name
-
 		cap = cv2.VideoCapture(file_name)
 		frame = None
 
@@ -67,70 +69,5 @@ class Manager():
 				print "Frame found."
 				break
 
+		cap.release()
 		return frame
-
-	def nothing(self, x):
-		# Filler for trackbars
-		pass
-
-	def create_trackbars(self):
-		self.trackbar_window = cv2.namedWindow("Trackbars")
-		cv2.createTrackbar('Median', 'Trackbars', 0, 255, self.nothing)
-		cv2.createTrackbar('Blur', 'Trackbars', 1, 99, self.nothing)
-		cv2.createTrackbar('Thresh', 'Trackbars', 0, 255, self.nothing)
-		cv2.createTrackbar('Save', 'Trackbars', 0, 1, self.nothing)
-		cv2.createTrackbar('Load', 'Trackbars', 0, 1, self.nothing)
-		cv2.createTrackbar('Reset', 'Trackbars', 0, 1, self.nothing)
-
-		self.default_values()
-
-	def merge(self, frames):
-		filler = frames['track'].copy()
-		filler[:] = 155
-		merged = np.vstack((frames['track'], filler, frames['bw'], filler, frames['final']))
-
-		return merged
-		
-	def default_values(self):
-		# Set default values
-		median_value = cv2.setTrackbarPos('Median', 'Trackbars', 100)
-		blur_value = cv2.setTrackbarPos('Blur', 'Trackbars', 1)
-		thresh_value = cv2.setTrackbarPos('Thresh', 'Trackbars', 25)
-
-	def load_preset(self):
-		# Open file to read from
-		with open('presets.txt') as f:
-			values = f.read().splitlines()
-
-		setTrackbarValues(int(values[0]), int(values[1]), int(values[2]), int(values[3]), int(values[4]), int(values[5]), int(values[6]))
-		
-	def save_preset(self):
-		median, blur, thresh, x, y, w, h, r = getTrackbarValues()
-		
-		# Open file and clear
-		target = open('presets.txt', 'w')
-		target.truncate()
-
-		# Write to file
-		target.write(str(median))
-		target.write('\n')
-
-		target.write(str(blur))
-		target.write('\n')
-
-		target.write(str(thresh))
-		target.write('\n')
-
-		target.write(str(x))
-		target.write('\n')
-
-		target.write(str(y))
-		target.write('\n')
-
-		target.write(str(w))
-		target.write('\n')
-
-		target.write(str(h))
-
-		# Close File
-		target.close()
