@@ -53,7 +53,6 @@ class ROIManager():
 				break
 
 		print "ROI selection finished"
-		return roi
 
 	"""
 	Purpose: Responds to user clicks by setting the bounds of the roi. 
