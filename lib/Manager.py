@@ -6,7 +6,7 @@ import numpy as np
 
 class Manager():
 	def __init__(self):
-		self.first_frame = self.get_first_frame
+		self.first_frame = self.get_first_frame()
 		self.roi_manager = ROIManager(self.first_frame)
 		print 'Manager class initialized'
 
