@@ -10,6 +10,7 @@ class Manager():
 		# Get first frame, file_name, and setup roi
 		self.first_frame = self.get_first_frame()
 		self.roi_manager = ROIManager(self.first_frame)
+		self.select_roi()
 		
 		# Init tracker and start reading
 		self.tracker = Tracker(self.file_name, self.get_roi())

@@ -138,7 +138,7 @@ class Tracker():
 		frame_delta = cv2.absdiff(empty, frame)					# Frame Delta
 		gray = cv2.cvtColor(frame_delta, cv2.COLOR_BGR2GRAY)	# Grayscale
 		track = gray.copy()[self.roi['top']:self.roi['bottom'], 
-							self.roi['left']:self.roi['right']			# Grab track
+							self.roi['left']:self.roi['right']]			# Grab track
 		
 		bw = np.asarray(track).copy() 							# Convert to array
 		bw[bw < m_val] = 0										# White
