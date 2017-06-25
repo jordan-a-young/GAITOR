@@ -1,5 +1,5 @@
 import cv2
-
+from cv2.cv import CV_GUI_NORMAL
 
 """
 ROI setup. User clicks 4 times to select the boundary of the ROI.
