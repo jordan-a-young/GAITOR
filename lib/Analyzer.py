@@ -1,4 +1,6 @@
 
 
 
-class Analyzer
+class Analyzer():
+	def __init__(self):
+		print "Analyzer class"
