@@ -6,11 +6,7 @@ class Tracker():
 		print 'Tracker class'
 		self.file_name = file_name
 		self.frames = []
-
-		self.x = roi['left']
-		self.y = roi['top']
-		self.width = roi['right'] - roi['left']
-		self.height = roi['bottom'] - roi['top']
+		self.roi = roi
 		
 		self.create_trackbars()
 
@@ -141,8 +137,8 @@ class Tracker():
 	def configure(self, frame, empty, m_val, b_val, t_val):
 		frame_delta = cv2.absdiff(empty, frame)					# Frame Delta
 		gray = cv2.cvtColor(frame_delta, cv2.COLOR_BGR2GRAY)	# Grayscale
-		track = gray.copy()[self.y:(self.y+self.height), 
-							self.x:(self.x+self.width)]			# Grab track
+		track = gray.copy()[self.roi['top']:self.roi['bottom'], 
+							self.roi['left']:self.roi['right']			# Grab track
 		
 		bw = np.asarray(track).copy() 							# Convert to array
 		bw[bw < m_val] = 0										# White
