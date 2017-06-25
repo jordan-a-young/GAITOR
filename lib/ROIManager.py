@@ -15,7 +15,7 @@ ending the set up. The roi is returned by set_roi as a list of four points.
 class ROIManager():
 	def __init__(self, frame):
 		self.first_frame = frame
-		self.frame_copy = first_frame.copy()
+		self.frame_copy = self.first_frame.copy()
 		self.roi = {'left': 0, 'right': 0, 'top': 0, 'bottom': 0}
 		self.left_clicks = 0
 		self.right_clicks = 0
