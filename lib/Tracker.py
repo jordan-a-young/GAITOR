@@ -43,7 +43,7 @@ class Tracker():
 				r_val = cv2.setTrackbarPos('Reset', 'Track', 0)
 
 			# Display
-			cv2.imshow('Track')
+			cv2.imshow('Track', merged)
 
 			# Pauses video after each frame, esc exits
 			key = cv2.waitKey(0) & 0xFF
