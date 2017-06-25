@@ -26,10 +26,10 @@ class Manager():
 		root.update()
 
 		file_opt = {}
-		options['defaultextension'] = ' .MP4'
-		options['filetypes'] = [('all files', '.*'),('text files','.MP4')]
-		options['initialdir'] = 'c:\Users\\'
-		options['initialfile'] = ' '
+		file_opt['defaultextension'] = ' .MP4'
+		file_opt['filetypes'] = [('all files', '.*'),('text files','.MP4')]
+		file_opt['initialdir'] = 'c:\Users\\'
+		file_opt['initialfile'] = ' '
 
 		# file name
 		file_name = tkFile.askopenfilename(**file_opt)
