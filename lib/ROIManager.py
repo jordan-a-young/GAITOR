@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 """
 ROI setup. User clicks 4 times to select the boundary of the ROI.
