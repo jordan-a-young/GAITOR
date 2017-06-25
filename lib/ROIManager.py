@@ -31,7 +31,7 @@ class ROIManager():
 	Output: A list of the form [left x, top y, right x, bottom y]
 	"""
 	def set_roi(self):
-		cv2.namedWindow('Set ROI')
+		cv2.namedWindow('Set ROI', CV_GUI_NORMAL)
 		cv2.setMouseCallback('Set ROI', self.mouse_click)
 
 		while True:
