@@ -38,7 +38,7 @@ class Tracker():
 			median_val, blur_val, thresh_val, r_val = self.get_trackbar_values()
 
 			# Configure and merge frames
-			configured_frames = self.configure(frame, median_val, blur_val, thresh_val)
+			configured_frames = self.configure(frame, empty_frame, median_val, blur_val, thresh_val)
 			merged = self.merge(configured_frames)
 
 			# Reset video
@@ -62,7 +62,7 @@ class Tracker():
 
 		return m_val, b_val, t_val, reset
 
-	def set_trackbar_values(m_val, b_val, t_val):
+	def set_trackbar_values(self, m_val, b_val, t_val):
 		if b_val%2 == 0: 
 			median_value = cv2.setTrackbarPos('Median', 'Track', m_val)
 			blur_value = cv2.setTrackbarPos('Blur', 'Track', b_val)
@@ -138,7 +138,7 @@ class Tracker():
 			self.save_preset()
 			save = cv2.setTrackbarPos('Save', 'Track', 0)
 			
-	def configure(frame, empty, m_val, b_val, t_val):
+	def configure(self, frame, empty, m_val, b_val, t_val):
 		frame_delta = cv2.absdiff(empty, frame)					# Frame Delta
 		gray = cv2.cvtColor(frame_delta, cv2.COLOR_BGR2GRAY)	# Grayscale
 		track = gray.copy()[self.y:(self.y+self.height), 
