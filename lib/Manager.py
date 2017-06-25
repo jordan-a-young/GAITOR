@@ -10,7 +10,7 @@ class Manager():
 		self.first_frame = self.get_first_frame()
 		self.file_name = ''
 		self.roi_manager = ROIManager(self.first_frame)
-		self.tracker = Tracker(self.file_name)
+		self.tracker = Tracker(self.file_name, self.get_roi())
 
 		print 'Manager class initialized'
 
