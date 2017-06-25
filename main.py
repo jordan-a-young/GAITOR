@@ -4,7 +4,11 @@ from lib.Tracker import Tracker
 from lib.Analyzer import Analyzer
 import cv2
 
-cap = cv2.VideoCapture('videos/VellumWalk0616_04.mp4')
+manager = Manager()
+file = manager.select_video()
+print "File chosen: %s" % file
+
+cap = cv2.VideoCapture(file)
 frame = None
 
 while True:
@@ -19,7 +23,3 @@ while True:
 
 roiManager = ROIManager(frame)
 roiManager.set_roi()
-
-manager = Manager()
-directory = manager.pick_folder()
-print directory

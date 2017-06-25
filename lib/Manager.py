@@ -14,7 +14,7 @@ class Manager():
 	a clean close-out.
 	Output: a string that is the full path to the folder the user chooses.
 	"""
-	def pick_folder(self):
+	def select_folder(self):
 		root = tk.Tk()
 		root.update()
 		folder = tkFileDialog.askdirectory(title='Choose a Folder')
