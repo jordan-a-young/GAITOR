@@ -17,7 +17,6 @@ class ROIManager():
 		self.frame_copy = self.first_frame.copy()
 		self.roi = {'left': 0, 'right': 0, 'top': 0, 'bottom': 0}
 		self.left_clicks = 0
-		self.right_clicks = 0
 
 	def get_roi(self):
 		return self.roi
@@ -39,7 +38,7 @@ class ROIManager():
 
 			if key == ord('z') or key == ord('Z'):
 				self.frame_copy = self.first_frame.copy()
-				self.right_clicks, self.left_clicks = 0, 0
+				self.left_clicks = 0
 				self.roi.update({'left': 0, 'right': 0, 'top': 0, 'bottom': 0})
 			
 			elif key == ord('d') or key == ord('D'):
@@ -62,19 +61,19 @@ class ROIManager():
 			self.roi['top'] = y
 			self.left_clicks += 1
 		
-		elif event == cv2.EVENT_LBUTTONDOWN and self.left_clicks > 0:
+		elif event == cv2.EVENT_LBUTTONDOWN and self.left_clicks == 1:
 			print 'Bottom: %d' % y 
 			self.roi['bottom'] = y
 			self.left_clicks += 1
 		
-		elif event == cv2.EVENT_RBUTTONDOWN and self.right_clicks == 0:
+		elif event == cv2.EVENT_LBUTTONDOWN and self.left_clicks == 2:
 			print 'Left: %d' % x
 			self.roi['left'] = x
-			self.right_clicks += 1
+			self.left_clicks += 1
 		
-		elif event == cv2.EVENT_RBUTTONDOWN and self.right_clicks > 0:
+		elif event == cv2.EVENT_LBUTTONDOWN and self.left_clicks == 3:
 			print 'Right: %d' % x
 			self.roi['right'] = x
-			self.right_clicks += 1
+			self.left_clicks += 1
 
 
