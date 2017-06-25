@@ -5,3 +5,5 @@ from lib.Analyzer import Analyzer
 import cv2
 
 manager = Manager()
+
+manager.start_tracker()
