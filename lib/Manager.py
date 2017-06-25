@@ -1,13 +1,13 @@
 import cv2
 import Tkinter as tk
 import tkFileDialog as tkFile
-import os.path
 from ROIManager import ROIManager
-
+import numpy as np
 
 class Manager():
-	def __init__(self, frame):
-		self.roi_manager = ROIManager(self.get_first_frame)
+	def __init__(self):
+		self.first_frame = self.get_first_frame
+		self.roi_manager = ROIManager(self.first_frame)
 		print 'Manager class initialized'
 
 	"""
