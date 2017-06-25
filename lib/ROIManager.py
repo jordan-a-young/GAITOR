@@ -60,21 +60,23 @@ class ROIManager():
 	"""
 	def mouse_click(self, event, x, y, flags, param):
 		if event == cv2.EVENT_LBUTTONDOWN and self.left_clicks == 0:
-			print y
+			print 'Top: %d' % y
 			self.roi['top'] = y
-			if self.top != None and self.bottom != None:
-				cv2.rectangle(self.curr_bg, (0, self.top), (self.orig_bg.shape[1], self.bottom), (0, 0, 255), thickness=2)
+			self.left_clicks += 1
 		
 		elif event == cv2.EVENT_LBUTTONDOWN and self.left_clicks > 0:
-			print y 
+			print 'Bottom: %d' % y 
 			self.roi['bottom'] = y
+			self.left_clicks += 1
 		
 		elif event == cv2.EVENT_RBUTTONDOWN and self.right_clicks == 0:
-			print x
+			print 'Left: %d' % x
 			self.roi['left'] = x
+			self.right_clicks += 1
 		
 		elif event == cv2.EVENT_RBUTTONDOWN and self.right_clicks > 0:
-			print x
+			print 'Right: %d' % x
 			self.roi['right'] = x
+			self.right_clicks += 1
 
 
