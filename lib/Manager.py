@@ -14,7 +14,7 @@ class Manager():
 	a clean close-out.
 	Output: a string that is the full path to the folder the user chooses.
 	"""
-	def pick_folder():
+	def pick_folder(self):
 		root = tk.Tk()
 		root.update()
 		folder = tkFileDialog.askdirectory(title='Choose a Folder')
@@ -29,7 +29,7 @@ class Manager():
 			add_text: any additional text, defaults to empty string
 	Output: a unique filepath for the output file to be written to.
 	"""
-	def make_file_path(input_file, file_type, add_text=''):
+	def make_file_path(self, input_file, file_type, add_text=''):
 		#add a space to additional text if it exists for formatting purposes
 		if len(add_text) > 0:
 			add_text = ' ' + add_text
