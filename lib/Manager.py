@@ -7,10 +7,14 @@ import numpy as np
 
 class Manager():
 	def __init__(self):
+		# Get first frame, file_name, and setup roi
 		self.first_frame = self.get_first_frame()
 		self.file_name = ''
 		self.roi_manager = ROIManager(self.first_frame)
+		
+		# Init tracker and start reading
 		self.tracker = Tracker(self.file_name, self.get_roi())
+		self.tracker.read_video()
 
 		print 'Manager class initialized'
 
