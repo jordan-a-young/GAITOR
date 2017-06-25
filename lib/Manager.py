@@ -56,7 +56,8 @@ class Manager():
 	 	return self.file_name
 
 	def get_first_frame(self):
-		cap = cv2.VideoCapture(file_name)
+		self.select_video()
+		cap = cv2.VideoCapture(self.file_name)
 		frame = None
 
 		while True:
