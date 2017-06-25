@@ -1,5 +1,4 @@
 import cv2
-from cv2.cv import CV_GUI_NORMAL
 
 """
 ROI setup. User clicks 4 times to select the boundary of the ROI.
@@ -31,7 +30,7 @@ class ROIManager():
 	Output: A list of the form [left x, top y, right x, bottom y]
 	"""
 	def set_roi(self):
-		cv2.namedWindow('Set ROI', CV_GUI_NORMAL)
+		cv2.namedWindow('Set ROI')
 		cv2.setMouseCallback('Set ROI', self.mouse_click)
 
 		while True:
