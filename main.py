@@ -5,4 +5,3 @@ from lib.Analyzer import Analyzer
 import cv2
 
 manager = Manager()
-manager.select_roi()

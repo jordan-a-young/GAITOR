@@ -14,7 +14,6 @@ class Manager():
 		
 		# Init tracker and start reading
 		self.tracker = Tracker(self.file_name, self.get_roi())
-		self.tracker.read_video()
 
 		print 'Manager class initialized'
 
@@ -76,3 +75,7 @@ class Manager():
 
 		cap.release()
 		return frame
+
+
+	def start_tracker(self):
+		self.tracker.read_video()

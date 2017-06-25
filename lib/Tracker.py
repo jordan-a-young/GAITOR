@@ -15,7 +15,7 @@ class Tracker():
 		self.create_trackbars()
 
 	def read_video(self):
-		cap = cv2.videoCapture(self.file_name)
+		cap = cv2.VideoCapture(self.file_name)
 		empty_frame = None
 		
 		while True:
