@@ -6,7 +6,7 @@ import os.path
 
 class Manager():
 	def __init__(self):
-		print 'Manager class'
+		print 'Manager class initialized'
 
 	"""
 	Purpose: Lets the user pick a folder that will contain all

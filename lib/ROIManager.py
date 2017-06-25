@@ -38,7 +38,7 @@ class ROIManager():
 			key = cv2.waitKey(1) & 0xFF
 
 			if key == ord('z') or key == ord('Z'):
-				self.curr_bg = self.orig_bg.copy()
+				self.frame_copy = self.first_frame.copy()
 				self.right_clicks, self.left_clicks = 0, 0
 				self.roi.update({'left': 0, 'right': 0, 'top': 0, 'bottom': 0})
 			
