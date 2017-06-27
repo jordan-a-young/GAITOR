@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "main.py", line 7, in <module>
+  File "lib\Manager.pyc", line 12, in __init__
+  File "lib\ROIManager.pyc", line 18, in __init__
+AttributeError: 'NoneType' object has no attribute 'copy'

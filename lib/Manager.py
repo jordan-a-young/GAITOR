@@ -44,9 +44,12 @@ class Manager():
 
 		# file name
 		self.file_name = tkFile.askopenfilename(**file_opt)
-		print "File chosen: %s" % self.file_name
 
 		root.destroy()
+		# Replace is necessary for windows. Comment out if on linux
+		self.file_name = self.file_name.replace('/', '\\')
+		print "File chosen: %s" % self.file_name
+
 		return self.file_name
 
 	def select_roi(self):

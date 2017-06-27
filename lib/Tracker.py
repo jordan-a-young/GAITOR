@@ -1,4 +1,5 @@
 import cv2
+from cv2.cv import CV_WINDOW_AUTOSIZE
 import numpy as np
 
 class Tracker():
@@ -56,7 +57,17 @@ class Tracker():
 		t_val = cv2.getTrackbarPos('Thresh', 'Track')
 		reset = cv2.getTrackbarPos('Reset', 'Track')
 
+		b_val = self.blur_check(b_val)
+
 		return m_val, b_val, t_val, reset
+
+	def blur_check(self, blur):
+		if blur % 2 == 1 or blur == 0 or blur == 1:
+			return blur
+		else:
+			print 'Error: blur value must be an odd number.'
+			cv2.setTrackbarPos('Blur', 'Track', blur-1)
+			return blur-1
 
 	def set_trackbar_values(self, m_val, b_val, t_val):
 		if b_val%2 != 0: 
