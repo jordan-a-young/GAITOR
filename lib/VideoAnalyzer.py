@@ -13,15 +13,16 @@ RED = (0, 0, 255)
 BLACK = (255, 255, 255)
 
 """
-Inputs:
-	filepath: the video it is to analyze
-	should_rotate: boolean that indicates whether 
-				   the video should be rotated
+Object that runs and controls video analysis of given video.
 
-Object that runs and controls video analysis of given video
+This class is used to track the paw prints of the rat from
+each video. It processes each frame, and marks the location
+of each paw print. Currently this information is written to 
+a csv for further analysis.
 """
 class VideoAnalyzer():
 	def __init__(self, filepath, should_rotate=False):
+		# Opens video to retrieve first frame
 		self.filepath = filepath
 		self.should_rotate = should_rotate
 		self.video = cv2.VideoCapture(self.filepath)

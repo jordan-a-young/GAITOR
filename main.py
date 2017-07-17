@@ -1,33 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar 09 20:52:23 2016
-
-Takes a single folder full of videos of the gait analysis set up and scores
-them. Is not able to detect pauses, so videos with those should be manually
-eliminated before or after this script. If the rat behaves strangely - turning
-around, pausing, placing its tail on the ground, ect, the scoring can become
-quite messy and get rather slow. A video can be exited without finishing
-scoring at any time by pressing 'q'. Used to run faster before I reduced
-the combining area, but some sacrifices must be made for accuracy. This is
-fairly well commented, but not as thoroughly as some of the labs other
-scripts as it's very long. Areas you may want to change include: turning on
-rotation - if you want the option to rotate the videos (if you recorded at
-an angle), you can set that in the call under main. If you want to set all rois
-separately for each video, call set_rois with the additional set_separate = True.
-If you want to change the distance for contours to be considered part of the
-same paw, which might be necessary if recording at a different size or maybe
-if recording with much different size rats, ect, that should be changed in
-the call to find_if_close in the analyze method of VideoAnalyzer. Changing the
-threshold for edge detections can also be done in the analyze method. This
-could allow you to put the numbers higher if you're getting detection of light
-objects you don't want, or to put them lower if you're missing detection
-of lighter objects you do want. The first number indicates the number below
-which something is considered definitely not an edge, and the second number
-indicates the number above which something is considered definitely an edge.
-Numbers in the middle are only counted as edges if they're connected to something
-higher than the second number.
-
-@author: Hayley Bounds
+This is the main file for a python program used to analyze
+paw prints of rats navigating a maze. This file contains the
+functions used to start the analysis process. The
+batch_management function runs all of the necessary functions
+for setup, and then analysis.
 """
 
 import cv2
@@ -39,9 +16,9 @@ import glob
 import random
 import string
 
-from VideoAnalyzer import VideoAnalyzer
-from SetUpManager import SetUpManager
-from Rotater import Rotater
+from lib.VideoAnalyzer import VideoAnalyzer
+from lib.SetUpManager import SetUpManager
+from lib.Rotater import Rotater
 
 """
 Lets the user pick a folder that will contain all the videos to be

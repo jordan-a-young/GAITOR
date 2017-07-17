@@ -3,15 +3,9 @@ import numpy as np
 from ROIManager import ROIManager
 
 """
-This object is given all the information it needs from the VideoAnalyzers.
-It stores this info (the frames and the instances of video analyzer), then it
-allows the user to go through all the rotations and roi settings. It sends the info
-to the relevant analyzer as soon as it's completed. Once it's finished, main will
-tell the video analyzers to begin analysis.
-
-Pairs of analyzers with the first frames of their videos are added to the
-analyzers list. do_rotations() does rotations for each video, saving the
-rotated frame of the roi
+This class is used to setup the videos for analysis. It handles
+ROI selection as well as adding the VideoAnalysis object for
+each video to list of analyzers.
 """
 class SetUpManager():
 	def __init__(self):
@@ -36,7 +30,7 @@ class SetUpManager():
 		# Call ROIManager to set roi for first element in analyzer
 		roi = ROIManager(self.analyzers[0][1]).set_roi()
 		
-		# set_separate toggles whether batch will all have the same roi
+		# set_separate toggles whether the batch will all have the same roi
 		for pair in self.analyzers:
 			if set_separate:
 				roi = ROIManager(pair[1]).set_roi()

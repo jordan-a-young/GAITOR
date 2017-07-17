@@ -8,15 +8,15 @@ GREEN = (0, 255, 0)
 RED = (0, 0, 255)
 
 """
-ROI setup. User clicks 4 times to select the boundary of the ROI.
-Takes in the first frame of a video in its constructor.
-Opencv drawing permanently alters the image, it displays a copy of that, curr_bg.
-When set_roi is called, it is displayed. The user clicking left sets the top and bottom 
-of the roi. Right clicks set the left and right of the roi. If all of the points are set,
-the roi is drawn as a rectangle on the image. It is automatically updated by
-the continuous while loop. If the user presses z, the values and image are reset and the image
-returns to the original one. Pressing d draws the roi. Esc breaks out of the while loop,
-ending the set up. The roi is returned by set_roi as a list of four points.
+ROI (Region of interest) setup. Allows the user to select a rectangular area
+for the analyzer to focus on.
+
+This class is initialized with the first frame of the video. The user
+then selects the region they wish to focus upon. This is done by clicking
+the left mousebutton 4 times. The order used to select the region is
+top, bottom, left, right. Once a region is selected the user can use
+'d', to draw an outline of the region. 'z' is used to reset, and 'f'
+when the user is satisfied with the region they have selected.
 """
 class ROIManager():
 	def __init__(self, frame):
