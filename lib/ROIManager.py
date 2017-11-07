@@ -38,7 +38,7 @@ class ROIManager():
 
 		while True:
 			# Display frame
-			cv2.imshow('Set ROI', self.frame_copy)
+			img = cv2.imshow('Set ROI', self.frame_copy)
 			key = cv2.waitKey(1) & 0xFF
 
 			# If z is pressed, reset

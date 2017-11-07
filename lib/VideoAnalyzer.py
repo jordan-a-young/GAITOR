@@ -64,7 +64,7 @@ class VideoAnalyzer():
 		# Stores the last frame accessed, so that it can be saved to an image.
 		last_frame = None
 		frame_numb = 1
-		
+
 		# Rotate and crop the first frame
 		grayFF = cv2.cvtColor(self.first_frame, cv2.COLOR_BGR2GRAY)
 		rows, cols = grayFF.shape
@@ -214,7 +214,7 @@ class VideoAnalyzer():
 
 			# Set waitkey ie: q to quit
 			#key = cv2.waitKey(int(time_for_frame))
-			key = cv2.waitKey(0)
+			key = cv2.waitKey()
 			if key == ord('q'):
 				break
 
@@ -227,7 +227,8 @@ class VideoAnalyzer():
 		# Process contours if we have more than one unified
 		if unified:
 			if len(unified[0]) > 1:
-				self.process_contours(unified, last_frame, self.filepath, self.roi)
+				print "Contours Sent for Processing Here."
+				# self.process_contours(unified, last_frame, self.filepath, self.roi)
 
 	"""
 	Takes two contours for every x, y point in 1, and compares it to every
