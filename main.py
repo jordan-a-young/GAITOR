@@ -19,6 +19,7 @@ import os.path
 import glob
 import random
 import string
+import time
 
 from lib.VideoAnalyzer import VideoAnalyzer
 from lib.SetUpManager import SetUpManager
@@ -31,20 +32,21 @@ the appropriate methods to complete set up and begin analysis.
 You can set what extension of video it should look for. Defaults to .mp4 .
 """
 class MyApp(QtWidgets.QStackedWidget,mainGUI.Ui_StackedWidget): 
-    def __init__(self):
-        super(self.__class__, self).__init__()
+    def __init__(self, parent=None):
+        QtWidgets.QStackedWidget.__init__(self, parent)
+        # make sure to add return StackedWidget to mainGUI.py
         StackedWidget = self.setupUi(self)
         self.startButton.clicked.connect(lambda: self.changePage(StackedWidget))
 
     def changePage(self,StackedWidget):
-        lambda: StackedWidget.setCurrentIndex(1)
-        self.batch_management()
+        StackedWidget.setCurrentIndex(1)
+        self.chooseVideoDirButton.clicked.connect(lambda: self.batch_management(StackedWidget))
 
     def chooseFolder(self):
         directory = QtWidgets.QFileDialog.getExistingDirectory(self,"Pick a folder")
         return directory
 
-    def batch_management(self, video_type='.MOV', should_rotate=False):
+    def batch_management(self, StackedWidget, video_type='.MOV', should_rotate=False):
         directory = self.chooseFolder()
 
         # Get list of all files of type video_type in that folder
@@ -66,13 +68,14 @@ class MyApp(QtWidgets.QStackedWidget,mainGUI.Ui_StackedWidget):
         if should_rotate:
             setup_manager.do_rotations()
         
+        StackedWidget.setCurrentIndex(2)
         # Set roi and run
-        setup_manager.set_rois()
+        setup_manager.set_rois(StackedWidget)
         setup_manager.run_analyses()
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    window = MyApp()
+    window = MyApp(None)
     window.show()
     sys.exit(app.exec_())
 

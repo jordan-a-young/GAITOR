@@ -26,14 +26,20 @@ class SetUpManager():
 			rows, cols = pair[1].shape
 			pair[1] = cv2.warpAffine(pair[1], mat, (cols, rows))
 
-	def set_rois(self, set_separate=False):
+	def set_rois(self, StackedWidget, set_separate=False):
 		# Call ROIManager to set roi for first element in analyzer
-		roi = ROIManager(self.analyzers[0][1]).set_roi()
+		# roi = ROIManager(self.analyzers[0][1], StackedWidget).set_roi()
+		roiMgr = ROIManager(self.analyzers[0][1], StackedWidget)
+		roiMgr.set_roi()
+		roi = roiMgr.get_roi()
 		
 		# set_separate toggles whether the batch will all have the same roi
 		for pair in self.analyzers:
 			if set_separate:
-				roi = ROIManager(pair[1]).set_roi()
+				# roi = ROIManager(pair[1], StackedWidget).set_roi()
+				roiMgr = ROIManager(pair[1], StackedWidget)
+				roiMgr.set_roi()
+				roi = roiMgr.get_roi()
 			
 			pair[0].set_roi(roi)
 

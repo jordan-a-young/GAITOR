@@ -214,7 +214,7 @@ class VideoAnalyzer():
 
 			# Set waitkey ie: q to quit
 			#key = cv2.waitKey(int(time_for_frame))
-			key = cv2.waitKey()
+			key = cv2.waitKey(1)
 			if key == ord('q'):
 				break
 
