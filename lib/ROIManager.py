@@ -2,7 +2,6 @@ import cv2
 from cv2.cv import CV_WINDOW_NORMAL
 import numpy as np
 import time
-from threading import Thread
 
 # Colors for drawing
 BLUE = (255, 0, 0)
@@ -29,11 +28,9 @@ class ROIManager():
         self.StackedWidget = StackedWidget
         # 0 = left, 1 = top, 2 = right, 3 = bottom
         self.roi = [0, 0, 0, 0]
-        self.resetFlag = False
-        self.t1 = Thread(target=self.countdown1)
-        self.t1.start()
-        self.t2 = Thread(target=self.countdown2)
-        self.t2.start()
+
+        # self.t1 = Thread(target=self.countdown1)
+        # self.t1.start()
 
     def get_roi(self):
         return self.roi
@@ -43,24 +40,24 @@ class ROIManager():
         cv2.namedWindow('Set ROI', CV_WINDOW_NORMAL)
         cv2.setMouseCallback('Set ROI', self.mouse_click)
         
-        # Display frame for choosing ROI. Lasts 30 seconds or until key pressed.
+        # Display frame for choosing ROI. Lasts until key pressed.
         img = cv2.imshow('Set ROI', self.frame_copy)
-        key = cv2.waitKey(30000)
+        key = cv2.waitKey(0)
         cv2.destroyAllWindows()
 
         if 0 in self.roi:
-            self.resetFlag = True
             self.resetROI()
         else:
             self.StackedWidget.setCurrentIndex(3)
-            # Display frame showing chosen ROI. Lasts 30 seconds or until key pressed.
+            # Display frame showing chosen ROI. Lasts until key pressed.
             cv2.namedWindow('Show ROI', CV_WINDOW_NORMAL)
             cv2.rectangle(self.frame_copy, (self.roi[0], self.roi[1]), 
                     (self.roi[2], self.roi[3]), BLUE, thickness=3)
             img2 = cv2.imshow('Show ROI', self.frame_copy)
             self.StackedWidget.resetButton.clicked.connect(lambda: self.resetROI())
-            key2 = cv2.waitKey(30000)
+            key2 = cv2.waitKey(0)
             cv2.destroyAllWindows()
+            self.StackedWidget.setCurrentIndex(4)
 
     def mouse_click(self, event, x, y, flags, param):
         if event == cv2.EVENT_LBUTTONDOWN and self.left_clicks == 0:
@@ -84,33 +81,9 @@ class ROIManager():
             self.left_clicks += 1
 
     def resetROI(self):
-        print "Resetting"
         cv2.destroyAllWindows()
         self.frame_copy = self.first_frame.copy()
         self.left_clicks = 0
         self.roi = [0, 0, 0, 0]
         self.StackedWidget.setCurrentIndex(2)
         self.set_roi()
-
-    def countdown1(self):
-        x = 30
-        while x >= 0:
-            time.sleep(1)
-            # if self.resetFlag is True:
-            if self.StackedWidget.currentIndex() is 3 or self.resetFlag is True:
-                x = 30
-                self.resetFlag = False
-            else:
-                x = x-1
-            self.StackedWidget.roiTimer.setProperty("value", x)
-           
-
-    def countdown2(self):
-        x=30
-        while x >= 0:
-            time.sleep(1)
-            if self.StackedWidget.currentIndex() is 2:
-                x = 30
-            else:
-                x = x-1
-            self.StackedWidget.roiTimer_2.setProperty("value", x)

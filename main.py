@@ -34,7 +34,7 @@ You can set what extension of video it should look for. Defaults to .mp4 .
 class MyApp(QtWidgets.QStackedWidget,mainGUI.Ui_StackedWidget): 
     def __init__(self, parent=None):
         QtWidgets.QStackedWidget.__init__(self, parent)
-        # make sure to add return StackedWidget to mainGUI.py
+        # make sure to add return StackedWidget to mainGUI.py!!!!!
         StackedWidget = self.setupUi(self)
         self.startButton.clicked.connect(lambda: self.changePage(StackedWidget))
 
@@ -61,7 +61,7 @@ class MyApp(QtWidgets.QStackedWidget,mainGUI.Ui_StackedWidget):
         
         # Initialize and add analyzer
         for path in video_paths:
-            video_analyzer = VideoAnalyzer(path)
+            video_analyzer = VideoAnalyzer(path, StackedWidget)
             setup_manager.add_analyzer(video_analyzer, video_analyzer.get_ff())
 
         # Rotate if needed

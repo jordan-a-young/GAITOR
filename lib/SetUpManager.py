@@ -46,4 +46,4 @@ class SetUpManager():
 	def run_analyses(self):
 		# Run analyses for each analyzer
 		for pair in self.analyzers:
-			pair[0].analyze()
+			quitPressed = pair[0].analyze()
