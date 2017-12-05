@@ -1,2 +1,2 @@
-# GAITOR
-Video Processing Software to Analyze Rats in a Gait Maze
+# Gaitor
+Python script to analyze video of rats walking and output information paw location for analysis of gait parameters.
