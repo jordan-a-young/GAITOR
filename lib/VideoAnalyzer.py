@@ -61,7 +61,7 @@ class VideoAnalyzer():
         # Create window
         win_name = os.path.split(self.filepath)[1]
         cv2.namedWindow(win_name, CV_WINDOW_NORMAL)
-        cv2.namedWindow('Track', CV_WINDOW_NORMAL)
+        #cv2.namedWindow('Track', CV_WINDOW_NORMAL)
         
         # Stores unified contours, the frames they're from, centroid x + centroid y
         unified = [[],[],[],[]]
@@ -121,7 +121,7 @@ class VideoAnalyzer():
 
             # Blur and threshold
             b_val = 17
-            t_val = 32
+            t_val = 25
             blur = cv2.GaussianBlur(subtracted, (b_val, b_val), 0)
             thresh = cv2.threshold(blur, t_val, 255, cv2.THRESH_BINARY)[1]
 
@@ -133,7 +133,7 @@ class VideoAnalyzer():
             kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11))
             final = cv2.morphologyEx(dilation, cv2.MORPH_OPEN, kernel)
 
-            cv2.imshow('Track', thresh)
+            #cv2.imshow('Track', thresh)
 
             # Do Canny edge detection and then find contours from those edges
             try:
